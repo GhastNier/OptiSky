@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 
 class ChoicesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,6 +16,7 @@ class ChoicesActivity : AppCompatActivity() {
         val buttonResult = findViewById<ImageButton>(R.id.imageButton)
         val stations = resources.getStringArray(R.array.Stations)
         val spinner = findViewById<Spinner>(R.id.choix_station)
+        val buttonHelp = findViewById<ImageButton>(R.id.helpButton)
 
         if (spinner != null) {
             val adapter = ArrayAdapter(
@@ -48,6 +50,18 @@ class ChoicesActivity : AppCompatActivity() {
         buttonResult.setOnClickListener {
             val intent = Intent(this, ResultsActivity::class.java)
             startActivity(intent)
+        }
+        buttonHelp.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage("Veuillez entrer une durée entre 30 minutes et 3 heures, par tranche de 15 minutes (Par exemple, 0:45 ou 2h15)")
+            builder.setTitle("Aide")
+            builder.setCancelable(true)
+            builder.setPositiveButton("Compris!") {
+                dialog, which -> dialog.cancel()
+            }
+
+            val AlertDialog = builder.create()
+            AlertDialog.show()
         }
     }
 }
